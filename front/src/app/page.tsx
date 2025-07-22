@@ -4,10 +4,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex-grow">
-      <div className="container mx-auto">
         {/* Seção Inicial */}
 
-        <section className="py-12">
+        <section className="py-12 w-full bg-[url('/bg-secao-inicial.png')] bg-no-repeat bg-cover bg-center">
           <div className="container mx-auto flex flex-col gap-6 items-center py-12 px-4 sm:px-0 text-center">
             <div className="text-4xl sm:text-5xl ">
               <h2>
@@ -24,7 +23,6 @@ export default function Home() {
 
           </div>
         </section>
-      </div>
     </main>
   );
 }
