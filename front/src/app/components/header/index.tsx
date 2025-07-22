@@ -16,7 +16,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="flex gap-6 text-lg">
+        <nav className="flex gap-6 text-xl">
           <Link
             className="hover:text-purple-600 transition-colors"
             href="/inicio"
