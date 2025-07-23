@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="w-full bg-white text-black py-4 border-b border-slate-200 drop-shadow-lg">
       <div className="container mx-auto py-2 flex justify-between items-center">
-        <Link href="/inicio" passHref> 
+        <Link href="/" passHref> 
           <div className="relative w-[150px] h-[50px] cursor-pointer"> 
             <Image
               src={"/logo-colecao-virtual.png"}
@@ -19,7 +19,7 @@ export default function Header() {
         <nav className="flex gap-6 text-xl">
           <Link
             className="hover:text-purple-600 transition-colors"
-            href="/inicio"
+            href="/"
           >
             Sobre
           </Link>
