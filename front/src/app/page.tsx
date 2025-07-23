@@ -8,7 +8,7 @@ export default function Home() {
 
         <section className="py-12 w-full bg-[url('/bg-secao-inicial.png')] bg-no-repeat bg-cover bg-center">
           <div className="container mx-auto flex flex-col gap-6 items-center py-12 px-4 sm:px-0 text-center">
-            <div className="text-4xl sm:text-5xl ">
+            <div className=" text-white text-4xl sm:text-5xl ">
               <h2>
                 Organize, avalie e reviva cada batida.
               </h2>

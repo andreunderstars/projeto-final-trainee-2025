@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Header() {
   return (
     <header className="w-full bg-white text-black py-4 border-b border-slate-200 drop-shadow-lg">
-      <div className="container mx-auto py-2 flex justify-between items-center">
+      <div className="container mx-auto py-2 flex justify-between items-center px-4 sm:px-6 lg:px-8">
         <Link href="/" passHref> 
           <div className="relative w-[150px] h-[50px] cursor-pointer"> 
             <Image
