@@ -17,7 +17,7 @@ export default function Home() {
               </h2>
             </div>
 
-          <Link className="bg-purple-600 hover:bg-purple-800 transition-colors text-white text-2xl whitespace-nowrap rounded-4xl px-8 py-6 w-full max-w-xs sm:w-auto text-center" href="/albuns">
+          <Link className="bg-purple-600 hover:bg-purple-800 transition-colors text-white text-xl md:text-2xl whitespace-nowrap rounded-4xl px-8 py-6 w-full max-w-xs sm:w-auto text-center" href="/albuns">
             Comece sua coleção
           </Link>
 
