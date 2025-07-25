@@ -100,6 +100,16 @@ async update(req: Request, res: Response) {
     return res.json(album);
   }
 
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+
+    await prisma.album.delete({
+      where: { id: Number(id) }
+    });
+
+    return res.status(204).send();
+  }
+
 }
 
 export { AlbumsController }

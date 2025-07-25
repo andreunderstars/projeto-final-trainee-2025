@@ -8,6 +8,6 @@ const albumsController = new AlbumsController()
 albumsRoutes.post("/", albumsController.create)
 albumsRoutes.get("/", albumsController.index)
 albumsRoutes.put("/:id", albumsController.update)
-
+albumsRoutes.delete("/:id", albumsController.delete)
 
 export { albumsRoutes }
