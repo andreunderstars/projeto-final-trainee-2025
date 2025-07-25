@@ -47,6 +47,13 @@ const album = await prisma.album.create({
     return res.json(album);
   }
 
+async index(req: Request, res: Response) {
+    const albums = await prisma.album.findMany();
+    return res.json(albums);
+  }
+
+
+  
 }
 
 export { AlbumsController }
