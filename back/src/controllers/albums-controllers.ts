@@ -1,9 +1,10 @@
 import { Request, Response } from "express"
+import { prisma } from "@/database/prisma"
 import { z } from "zod"
 
 class AlbumsController {
 
-create(req: Request, res: Response) {
+ async create(req: Request, res: Response) {
     const bodySchema = z.object({
  title: z.string()
     .min(3, "O título é obrigatório.") 
@@ -33,7 +34,17 @@ create(req: Request, res: Response) {
     
 const { title, artist, gender, releaseYear, imageUrl} = bodySchema.parse(req.body)
 
-    return res.json({ message: "create" });
+const album = await prisma.album.create({
+  data: {
+    title,
+    artist,
+    gender,
+    releaseYear,
+    imageUrl
+  }
+})
+
+    return res.json(album);
   }
 
 }
