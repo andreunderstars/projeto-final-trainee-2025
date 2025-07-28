@@ -84,10 +84,6 @@ async update(req: Request, res: Response) {
     const parsedAvaliacaoId = avaliacaoIdParamSchema.safeParse(req.params.avaliacaoId);
     const avaliacaoId = parsedAvaliacaoId.data;
 
-    if(!avaliacaoId) {
-    return res.status(400).json({ error: "ID da avaliação inválido." });
-    }
-
     const { title, date, score, comment } = bodySchema.parse(req.body);
 
     const avaliacao = await prisma.avaliacao.update({
@@ -96,6 +92,25 @@ async update(req: Request, res: Response) {
     });
 
     return res.status(200).json(avaliacao);
+}
+
+async delete(req: Request, res: Response) {
+    const avaliacaoIdParamSchema = z.string().transform((val) => {
+        const num = parseInt(val, 10);
+        return isNaN(num) ? undefined : num;
+      })
+      .refine((val) => val !== undefined, {
+        message: "ID da avaliação inválido. Deve ser um número inteiro.",
+      });
+
+    const parsedAvaliacaoId = avaliacaoIdParamSchema.safeParse(req.params.avaliacaoId);
+    const avaliacaoId = parsedAvaliacaoId.data;
+
+    await prisma.avaliacao.delete({
+      where: { id: avaliacaoId },
+    });
+
+    return res.status(204).send();
 }
 
   }

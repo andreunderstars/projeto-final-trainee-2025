@@ -8,5 +8,6 @@ const avaliacoesController = new AvaliacoesController()
 avaliacoesRoutes.post("/", avaliacoesController.create)
 avaliacoesRoutes.get("/", avaliacoesController.index)
 avaliacoesRoutes.put("/:avaliacaoId", avaliacoesController.update)
+avaliacoesRoutes.delete("/:avaliacaoId", avaliacoesController.delete)
 
 export { avaliacoesRoutes }
