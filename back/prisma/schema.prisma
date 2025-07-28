@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model album {
+model Album {
   id Int @id @default(autoincrement())
   title String
   artist String
@@ -15,7 +15,8 @@ model album {
   releaseYear Int
   imageUrl String?
 
-songs song[]
+songs Song[]
+avaliacoes Avaliacao[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
@@ -23,7 +24,7 @@ songs song[]
   @@map("albums")
 }
 
-model song {
+model Song {
   id Int @id @default(autoincrement())
   title String
 
@@ -31,7 +32,22 @@ model song {
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   albumId     Int
-  albumRelation       album    @relation(fields: [albumId], references: [id]) 
+  album      Album    @relation(fields: [albumId], references: [id]) 
 
   @@map("songs")
+}
+
+model Avaliacao {
+  id Int @id @default(autoincrement())
+  date String
+score Int
+comment String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  albumId     Int
+  album       Album    @relation(fields: [albumId], references: [id])
+
+  @@map("avaliacoes")
 }
