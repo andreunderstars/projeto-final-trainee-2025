@@ -15,8 +15,23 @@ model album {
   releaseYear Int
   imageUrl String?
 
+songs song[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("albums")
+}
+
+model song {
+  id Int @id @default(autoincrement())
+  title String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  albumId     Int
+  albumRelation       album    @relation(fields: [albumId], references: [id]) 
+
+  @@map("songs")
 }
