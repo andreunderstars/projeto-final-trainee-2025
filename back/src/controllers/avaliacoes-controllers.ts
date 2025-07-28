@@ -42,6 +42,29 @@ async create(req: Request, res: Response) {
       })
       return res.status(201).json(avaliacao);
 }
+
+async index(req: Request, res: Response) {
+    const albumIdParamSchema = z.string().transform((val) => {
+        const num = parseInt(val, 10);
+        return isNaN(num) ? undefined : num;
+      })
+      .refine((val) => val !== undefined, {
+        message: "ID do álbum inválido. Deve ser um número inteiro.",
+      });
+
+    const parsedAlbumId = albumIdParamSchema.safeParse(req.params.albumId);
+
+    const albumId = parsedAlbumId.data;
+
+    const avaliacoes = await prisma.avaliacao.findMany({
+      where: {
+        albumId: albumId,
+      },
+    });
+
+    return res.status(200).json(avaliacoes);
+}
+
   }
 
 

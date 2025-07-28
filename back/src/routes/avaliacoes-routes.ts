@@ -5,6 +5,7 @@ const avaliacoesRoutes = Router({ mergeParams: true })
 
 const avaliacoesController = new AvaliacoesController()
 
-avaliacoesRoutes.post("/", avaliacoesController.create.bind(avaliacoesController))
+avaliacoesRoutes.post("/", avaliacoesController.create)
+avaliacoesRoutes.get("/", avaliacoesController.index)
 
 export { avaliacoesRoutes }
