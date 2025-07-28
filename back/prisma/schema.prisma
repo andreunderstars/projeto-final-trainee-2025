@@ -39,6 +39,7 @@ model Song {
 
 model Avaliacao {
   id Int @id @default(autoincrement())
+  title String
   date String
 score Int
 comment String?

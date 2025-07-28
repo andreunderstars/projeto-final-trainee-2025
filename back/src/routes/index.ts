@@ -5,6 +5,6 @@ import { avaliacoesRoutes } from "./avaliacoes-routes"
 const routes = Router()
 
 routes.use("/albums", albumsRoutes)
-routes.use("/avaliacoes", avaliacoesRoutes)
+routes.use("/albums/:albumId/avaliacoes", avaliacoesRoutes)
 
 export { routes }
