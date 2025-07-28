@@ -110,6 +110,20 @@ async update(req: Request, res: Response) {
     return res.status(204).send();
   }
 
+  async show(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const album = await prisma.album.findUnique({
+      where: { id: Number(id) }
+    });
+
+    if (!album) {
+      return res.status(404).json({ error: "Álbum não encontrado." });
+    }
+
+    return res.json(album);
+  }
+
 }
 
 export { AlbumsController }
