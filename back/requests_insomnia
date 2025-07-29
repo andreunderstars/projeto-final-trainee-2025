@@ -1,0 +1,292 @@
+type: collection.insomnia.rest/5.0
+name: Coleção virtual
+meta:
+  id: wrk_ae23c85f4a204a60b4ee8b3ebac1138a
+  created: 1753448549733
+  modified: 1753448565907
+  description: ""
+collection:
+  - name: Albums
+    meta:
+      id: fld_c93ba8ca1f9e4ba1be38c3dce431bd7e
+      created: 1753448580484
+      modified: 1753742250244
+      sortKey: -1753448580484
+      description: ""
+    children:
+      - url: "{{ _[''].BASE_URL }}"
+        name: Create
+        meta:
+          id: req_4db98ff0cf754603b5c8a3d913dbc2b4
+          created: 1753448583368
+          modified: 1753751180615
+          isPrivate: false
+          description: ""
+          sortKey: -1753448583368
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Buiikikaesu",
+            	"artist": "Maximum the Hormone",
+            	"gender":"Rock/metal", 
+            	"releaseYear": 2005,
+            	"imageUrl": "./buiikisu.png"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}"
+        name: Index
+        meta:
+          id: req_500fbf0bf3074aec8edf4fcab34f4ad3
+          created: 1753453633259
+          modified: 1753742267994
+          isPrivate: false
+          description: ""
+          sortKey: -1753453633259
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/8"
+        name: Update
+        meta:
+          id: req_8f70324c98a04da4880f9dbff2ef58ac
+          created: 1753454185260
+          modified: 1753751219543
+          isPrivate: false
+          description: ""
+          sortKey: -1753454185260
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            		"imageUrl": "./buiikikaesu.png"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/9"
+        name: Delete
+        meta:
+          id: req_41045e9546ef40b890fa448a795a019a
+          created: 1753454792050
+          modified: 1753751377635
+          isPrivate: false
+          description: ""
+          sortKey: -1753454792050
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/8"
+        name: Show
+        meta:
+          id: req_6f2c1b00322c40079db2b57c8ddbcffc
+          created: 1753738876213
+          modified: 1753751229370
+          isPrivate: false
+          description: ""
+          sortKey: -1753738876213
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Avaliações
+    meta:
+      id: fld_afe0d9160f884fa2b45b0722b2213df2
+      created: 1753742074755
+      modified: 1753742315054
+      sortKey: -1753742074755
+      description: ""
+    children:
+      - url: "{{ _[''].BASE_URL }}/9/{{ _[''].RESOURCE }}"
+        name: Create
+        meta:
+          id: req_6c9464d9cb964de6b85ef564b379edaf
+          created: 1753742077893
+          modified: 1753751268993
+          isPrivate: false
+          description: ""
+          sortKey: -1753742077893
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Avaliação",
+            	"score": 10,
+            	"date": "24/12/2024",
+            	"comment": "Músicas boas e pesadas! Heavy metal"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/9/{{ _[''].RESOURCE }}"
+        name: Index
+        meta:
+          id: req_c658665125274204b2b7eb29a231c9dc
+          created: 1753746200086
+          modified: 1753751279371
+          isPrivate: false
+          description: ""
+          sortKey: -1753746200086
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/9/{{ _[''].RESOURCE }}/5"
+        name: Update
+        meta:
+          id: req_1b30886a7c0b4949be8d0d4d01906edf
+          created: 1753746418044
+          modified: 1753751319575
+          isPrivate: false
+          description: ""
+          sortKey: -1753746418044
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Avaliando Buiikisu"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/7/{{ _[''].RESOURCE }}/5"
+        name: Delete
+        meta:
+          id: req_2a065b7cbe1e4f95ae58491214e622a6
+          created: 1753747039784
+          modified: 1753751359926
+          isPrivate: false
+          description: ""
+          sortKey: -1753747039784
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _[''].BASE_URL }}/9/{{ _[''].RESOURCE }}/5"
+        name: Show
+        meta:
+          id: req_ffce7d6acf2d43fd80fcfb8c1a851bb5
+          created: 1753750803920
+          modified: 1753751352724
+          isPrivate: false
+          description: ""
+          sortKey: -1753750803920
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      "":
+        RESOURCE: avaliacoes
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_56d5c615b53303fc48f322ebc0eaaf4f1100ac34
+    created: 1753448549737
+    modified: 1753448549737
+environments:
+  name: Base Environment
+  meta:
+    id: env_56d5c615b53303fc48f322ebc0eaaf4f1100ac34
+    created: 1753448549736
+    modified: 1753742230643
+    isPrivate: false
+  data:
+    "":
+      BASE_URL: http://localhost:3333/albums

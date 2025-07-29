@@ -44,11 +44,20 @@ const album = await prisma.album.create({
   }
 })
 
-    return res.json(album);
+if (!album) {
+    return res.status(400).json({ error: "Erro ao criar álbum." });
+}
+
+    return res.status(201).json(album);
   }
 
 async index(req: Request, res: Response) {
     const albums = await prisma.album.findMany();
+
+if (albums.length === 0) {
+    return res.status(404).json({ error: "Nenhum álbum encontrado." });
+}
+
     return res.json(albums);
   }
 
@@ -97,6 +106,10 @@ async update(req: Request, res: Response) {
       }
     });
 
+    if (!album) {
+      return res.status(404).json({ error: "Álbum não encontrado." });
+    }
+
     return res.json(album);
   }
 
@@ -107,7 +120,25 @@ async update(req: Request, res: Response) {
       where: { id: Number(id) }
     });
 
+  if (!id) {
+      return res.status(404).json({ error: "Álbum não encontrado." });
+    }
+
     return res.status(204).send();
+  }
+
+  async show(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const album = await prisma.album.findUnique({
+      where: { id: Number(id) }
+    });
+
+    if (!album) {
+      return res.status(404).json({ error: "Álbum não encontrado." });
+    }
+
+    return res.json(album);
   }
 
 }
