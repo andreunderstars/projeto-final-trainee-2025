@@ -1,4 +1,5 @@
 
+import { ChevronLeft } from "lucide-react";
 import AvaliacaoCard from "../components/avaliacaoCard";
 
 export default function Avaliacoes() {
@@ -7,7 +8,9 @@ export default function Avaliacoes() {
       <section>
         <div className="container mx-auto flex flex-col gap-6 p-4">
           <header className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-black">Avaliações</h2>
+            <button className="text-xl text-[#8c52ff] hover:text-purple-800 transition-colors hover:cursor-pointer"> 
+                <ChevronLeft className="inline-block" size={32}/>
+                Voltar para álbum </button>
             <button className="bg-purple-600 hover:bg-purple-800 hover:cursor-pointer transition-colors text-white text-lg font-bold whitespace-nowrap rounded-4xl px-4 py-2">
               + Avaliar
             </button>
