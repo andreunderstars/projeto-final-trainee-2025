@@ -9,5 +9,6 @@ avaliacoesRoutes.post("/", avaliacoesController.create)
 avaliacoesRoutes.get("/", avaliacoesController.index)
 avaliacoesRoutes.put("/:avaliacaoId", avaliacoesController.update)
 avaliacoesRoutes.delete("/:avaliacaoId", avaliacoesController.delete)
+avaliacoesRoutes.get("/:avaliacaoId", avaliacoesController.show)
 
 export { avaliacoesRoutes }

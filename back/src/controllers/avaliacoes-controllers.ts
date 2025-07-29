@@ -113,6 +113,25 @@ async delete(req: Request, res: Response) {
     return res.status(204).send();
 }
 
+async show(req: Request, res: Response) {
+    const avaliacaoIdParamSchema = z.string().transform((val) => {
+        const num = parseInt(val, 10);
+        return isNaN(num) ? undefined : num;
+      })
+      .refine((val) => val !== undefined, {
+        message: "ID da avaliação inválido. Deve ser um número inteiro.",
+      });
+
+    const parsedAvaliacaoId = avaliacaoIdParamSchema.safeParse(req.params.avaliacaoId);
+    const avaliacaoId = parsedAvaliacaoId.data;
+
+    const avaliacao = await prisma.avaliacao.findUnique({
+      where: { id: avaliacaoId },
+    });
+
+    return res.status(200).json(avaliacao);
+}
+
   }
 
 
