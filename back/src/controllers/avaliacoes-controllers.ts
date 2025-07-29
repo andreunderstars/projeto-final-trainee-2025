@@ -40,6 +40,11 @@ async create(req: Request, res: Response) {
         },
     }
       })
+
+if (!avaliacao) {
+      return res.status(400).json({ error: "Erro ao criar avaliação." });
+}
+
       return res.status(201).json(avaliacao);
 }
 
@@ -61,6 +66,10 @@ async index(req: Request, res: Response) {
         albumId: albumId,
       },
     });
+
+    if (!avaliacoes || avaliacoes.length === 0) {
+      return res.status(404).json({ error: "Nenhuma avaliação encontrada para este álbum." });
+    }
 
     return res.status(200).json(avaliacoes);
 }
@@ -91,6 +100,10 @@ async update(req: Request, res: Response) {
       data: { title, date, score, comment },
     });
 
+    if (!avaliacao) {
+      return res.status(404).json({ error: "Avaliação não encontrada." });
+    }
+
     return res.status(200).json(avaliacao);
 }
 
@@ -110,6 +123,10 @@ async delete(req: Request, res: Response) {
       where: { id: avaliacaoId },
     });
 
+    if (!avaliacaoId) {
+      return res.status(404).json({ error: "Avaliação não encontrada." });
+    }
+
     return res.status(204).send();
 }
 
@@ -128,6 +145,10 @@ async show(req: Request, res: Response) {
     const avaliacao = await prisma.avaliacao.findUnique({
       where: { id: avaliacaoId },
     });
+
+    if (!avaliacao) {
+      return res.status(404).json({ error: "Avaliação não encontrada." });
+    }
 
     return res.status(200).json(avaliacao);
 }
