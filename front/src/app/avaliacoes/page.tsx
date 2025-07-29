@@ -1,4 +1,6 @@
 
+import AvaliacaoCard from "../components/avaliacaoCard";
+
 export default function Avaliacoes() {
   return (
     <main className="flex-grow bg-white text-black border-b-2 border-slate-200">
@@ -12,8 +14,11 @@ export default function Avaliacoes() {
           </header>
 
           {/* Cards de avaliações */}
-          <div className="flex gap-6 flex-wrap justify-center">
+          <div className="flex flex-col gap-6 flex-wrap justify-center w-[80%] mx-auto">
             
+            <AvaliacaoCard />
+            <AvaliacaoCard />
+
           </div>
         </div>
       </section>
