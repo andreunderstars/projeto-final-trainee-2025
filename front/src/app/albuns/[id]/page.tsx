@@ -7,7 +7,7 @@ export default function AlbumPage() {
     <main className="flex-grow py-8 bg-white">
       <div className="container mx-auto">
         <Link
-          className="flex text-purple-500 hover:text-purple-800 mb-6"
+          className="flex text-purple-500 hover:text-purple-800 mb-6 "
           href="/albuns"
         >
           <ChevronLeft />
@@ -33,14 +33,14 @@ export default function AlbumPage() {
             <div className="bg-purple-50 p-6 rounded-2xl flex flex-col items-start">
               <div className="flex justify-between items-start w-full">
                 <div>
-                  <h2 className="text-4xl font-extrabold text-black">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-black">
                     Título do Álbum
                   </h2>
                   <p className="text-gray-500 text-2xl">Nome do Artista</p>
                 </div>
 
                 <div className="text-right">
-                  <p className="text-4xl font-extrabold text-black">
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-black">
                     {/* Exemplo de Nota */}
                     Nota:<span className="ml-1">8.7</span>
                   </p>
