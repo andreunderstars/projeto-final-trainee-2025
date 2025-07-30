@@ -29,22 +29,13 @@ export default function Home() {
             Álbuns em Destaque
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-
             {/* Placeholders para os cards de álbum*/}
-            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center">
+            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center"></div>
+            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center"></div>
 
-            </div>
-            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center">
+            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center"></div>
 
-            </div>
-
-            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center">
-
-            </div>
-
-            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center">
-
-            </div>
+            <div className="bg-gray-200 rounded-lg shadow-md h-64 flex items-center justify-center"></div>
           </div>
         </div>
       </section>
