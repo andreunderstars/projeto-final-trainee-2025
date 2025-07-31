@@ -8,14 +8,20 @@ interface AlbumCardProps {
   album: Album;
   onEdit: (album: Album) => void;
   onDelete: (albumId: number) => void;
+  showActions?: boolean;
 }
 
-export default function AlbumCard({ album, onEdit, onDelete }: AlbumCardProps) {
+export default function AlbumCard({
+  album,
+  onEdit,
+  onDelete,
+  showActions = true,
+}: AlbumCardProps) {
   const displayImageUrl = album.imageUrl || "/bg-secao-inicial.png";
 
   return (
     <Link href={`/albuns/${album.id}`}>
-      <div className="bg-white border border-slate-200 rounded-lg shadow-md overflow-hidden w-[15rem] flex flex-col h-full">
+      <div className="bg-white border border-slate-200 rounded-lg shadow-md overflow-hidden w-[20rem] flex flex-col h-full">
         {/* Imagem do álbum */}
         <div className="relative w-full h-32 flex-shrink-0">
           <Image
@@ -25,29 +31,30 @@ export default function AlbumCard({ album, onEdit, onDelete }: AlbumCardProps) {
             objectFit="cover"
             className="rounded-t-lg"
           />
-
-          <div className="absolute bottom-2 right-2 flex gap-2">
-            <button
-              className="bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1 cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onDelete(album.id);
-              }}
-            >
-              <Trash2 size={24} />
-            </button>
-            <button
-              className="bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1 cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onEdit(album);
-              }}
-            >
-              <SquarePen size={24} />
-            </button>
-          </div>
+          {showActions && (
+            <div className="absolute bottom-2 right-2 flex gap-2">
+              <button
+                className="bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1 cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onDelete(album.id);
+                }}
+              >
+                <Trash2 size={24} />
+              </button>
+              <button
+                className="bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1 cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onEdit(album);
+                }}
+              >
+                <SquarePen size={24} />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Detalhes do álbum */}
