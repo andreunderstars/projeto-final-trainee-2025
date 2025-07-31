@@ -4,7 +4,6 @@ import { avaliacoesRoutes } from "./avaliacoes-routes"
 
 const routes = Router()
 
-routes.use("/albums", albumsRoutes)
-routes.use("/albums/:albumId/avaliacoes", avaliacoesRoutes)
+routes.use("/api/albums", albumsRoutes)
 
 export { routes }
