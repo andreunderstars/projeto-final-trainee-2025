@@ -219,7 +219,7 @@ projeto-final-trainee-2025/
 
 Este projeto foi carinhosamente desenvolvido por:
 
-* [Davi da Silva Lorena](https://github.com/DaviLorena)
-* [Rafael Lemes Scarpel](https://github.com/RafaelLemes)
+* [Davi da Silva Lorena](https://github.com/Davi-Lorena)
+* [Rafael Lemes Scarpel](https://github.com/rafa-lsc)
 
 Sinta-se à vontade para explorar, aprender e, quem sabe, contribuir! 😊
