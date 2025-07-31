@@ -3,7 +3,7 @@
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import api from "@/utils/api";
 
 interface Avaliacao {
@@ -27,12 +27,13 @@ export interface Album {
 }
 
 interface AlbumPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function AlbumPage({ params }: AlbumPageProps) {
+export default function AlbumPage(props: AlbumPageProps) {
+  const params = use(props.params);
   const albumId = params.id;
   const [album, setAlbum] = useState<Album | null>(null);
   const [loading, setLoading] = useState(true);
