@@ -7,9 +7,12 @@ class AlbumsController {
  async create(req: Request, res: Response) {
     const bodySchema = z.object({
  title: z.string()
-    .min(3, "O título é obrigatório.") 
-    .max(100, "O título não pode ter mais de 100 caracteres.") 
-    .trim(), 
+
+    .min(3, "O título é obrigatório.")
+
+    .max(100, "O título não pode ter mais de 100 caracteres.")
+
+    .trim(),
 
   artist: z.string()
     .min(4, "O nome do artista é obrigatório.")
@@ -22,16 +25,22 @@ class AlbumsController {
     .trim(),
 
   releaseYear: z.number()
-    .int("O ano de lançamento deve ser um número inteiro.") 
-    .min(1800, "O ano de lançamento não pode ser anterior a 1800.") 
-    .max(new Date().getFullYear(), "O ano de lançamento não pode ser futuro.") 
-    .positive("O ano de lançamento deve ser um número positivo."), 
+
+    .int("O ano de lançamento deve ser um número inteiro.")
+
+    .min(1800, "O ano de lançamento não pode ser anterior a 1800.")
+
+    .max(new Date().getFullYear(), "O ano de lançamento não pode ser futuro.")
+
+    .positive("O ano de lançamento deve ser um número positivo."),
 
   imageUrl: z.string()
   .min(5, "A URL da imagem deve ter ao menos 5 caracteres.")
   .optional(),
     })
-    
+
+   
+
 const { title, artist, gender, releaseYear, imageUrl} = bodySchema.parse(req.body)
 
 const album = await prisma.album.create({
@@ -57,18 +66,18 @@ async index(req: Request, res: Response) {
 if (albums.length === 0) {
     return res.status(404).json({ error: "Nenhum álbum encontrado." });
 }
-
     return res.json(albums);
   }
 
 async update(req: Request, res: Response) {
+
     const { id } = req.params;
     const bodySchema = z.object({
      title: z.string()
-    .min(3, "O título é obrigatório.") 
-    .max(100, "O título não pode ter mais de 100 caracteres.") 
+    .min(3, "O título é obrigatório.")
+    .max(100, "O título não pode ter mais de 100 caracteres.")
     .trim()
-    .optional(), 
+    .optional(),
 
   artist: z.string()
     .min(4, "O nome do artista é obrigatório.")
@@ -82,11 +91,16 @@ async update(req: Request, res: Response) {
     .trim().optional(),
 
   releaseYear: z.number()
-    .int("O ano de lançamento deve ser um número inteiro.") 
-    .min(1800, "O ano de lançamento não pode ser anterior a 1800.") 
-    .max(new Date().getFullYear(), "O ano de lançamento não pode ser futuro.") 
+
+    .int("O ano de lançamento deve ser um número inteiro.")
+
+    .min(1800, "O ano de lançamento não pode ser anterior a 1800.")
+
+    .max(new Date().getFullYear(), "O ano de lançamento não pode ser futuro.")
+
     .positive("O ano de lançamento deve ser um número positivo.")
-    .optional(), 
+
+    .optional(),
 
   imageUrl: z.string()
   .min(5, "A URL da imagem deve ter ao menos 5 caracteres.")
@@ -123,24 +137,26 @@ async update(req: Request, res: Response) {
   if (!id) {
       return res.status(404).json({ error: "Álbum não encontrado." });
     }
-
     return res.status(204).send();
   }
 
   async show(req: Request, res: Response) {
+
     const { id } = req.params;
 
     const album = await prisma.album.findUnique({
-      where: { id: Number(id) }
+      where: { id: Number(id) },
+      include: {
+          avaliacoes: true,
+        },
     });
 
     if (!album) {
       return res.status(404).json({ error: "Álbum não encontrado." });
     }
-
     return res.json(album);
   }
-
 }
+
 
 export { AlbumsController }

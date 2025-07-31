@@ -28,13 +28,13 @@ export interface Album {
 
 interface AlbumPageProps {
   params: {
-    id: string; 
+    id: string;
   };
 }
 
 export default function AlbumPage({ params }: AlbumPageProps) {
-  const albumId = params.id; 
-  const [album, setAlbum] = useState<Album | null>(null); 
+  const albumId = params.id;
+  const [album, setAlbum] = useState<Album | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -172,11 +172,13 @@ export default function AlbumPage({ params }: AlbumPageProps) {
 
             {/* Card do botão de Avaliações*/}
             <div className="bg-purple-50 p-4 rounded-2xl">
-              <button className="bg-purple-600 text-white font-extrabold py-6 px-8 rounded-lg hover:bg-purple-700 transition text-2xl md:text-3xl lg:text-4xl w-full">
-                {" "}
-                {/* Ajustado tamanho do texto */}
-                Avaliações
-              </button>
+              <Link href={`/avaliacoes/${album.id}`}>
+                <button className="bg-purple-600 text-white font-extrabold py-6 px-8 rounded-lg hover:bg-purple-700 transition text-2xl md:text-3xl lg:text-4xl w-full cursor-pointer">
+                  {" "}
+                  {/* Ajustado tamanho do texto */}
+                  Avaliações
+                </button>
+              </Link>
             </div>
           </div>
         </div>
