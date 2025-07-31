@@ -5,11 +5,6 @@ import AlbumCard from "../components/albumCard";
 import AlbumFormModal from "../components/AlbumFormModal";
 import api from "@/utils/api";
 
-interface Musica {
-  id: number;
-  title: string;
-}
-
 interface Avaliacao {
   id: number;
   title: string;
@@ -24,8 +19,7 @@ export interface Album {
   artist: string;
   gender: string;
   releaseYear: number;
-  imageUrl?: string;
-  Musicas?: Musica[];
+  imageUrl?: string | null;
   avaliacoes?: Avaliacao[];
   createdAt: string;
   updatedAt?: string;
@@ -33,6 +27,7 @@ export interface Album {
 
 export default function Albuns() {
   const [isAlbumModalOpen, setIsAlbumModalOpen] = useState(false);
+  const [editingAlbum, setEditingAlbum] = useState<Album | null>(null);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [loadingAlbums, setLoadingAlbums] = useState(true);
   const [errorAlbums, setErrorAlbums] = useState<string | null>(null);
@@ -55,10 +50,44 @@ export default function Albuns() {
     fetchAlbums();
   }, [fetchAlbums]);
 
+  const handleOpenCreateModal = () => {
+    setEditingAlbum(null);
+    setIsAlbumModalOpen(true);
+  };
+
+  const handleOpenEditModal = (albumToEdit: Album) => {
+    setEditingAlbum(albumToEdit);
+    setIsAlbumModalOpen(true);
+  };
+
   const handleAlbumCreated = () => {
-    console.log("Novo álbum criado");
+    console.log("Frontend: Novo álbum criado. Recarregando lista...");
     fetchAlbums();
     setIsAlbumModalOpen(false);
+    setEditingAlbum(null);
+  };
+
+  const handleAlbumUpdated = () => {
+    console.log("Frontend: Álbum atualizado. Recarregando lista...");
+    fetchAlbums();
+    setIsAlbumModalOpen(false);
+    setEditingAlbum(null);
+  };
+
+  const handleDeleteAlbum = async (albumId: number) => {
+    if (window.confirm("Tem certeza que deseja excluir este álbum?")) {
+      try {
+        setLoadingAlbums(true);
+        await api.delete(`/albums/${albumId}`);
+        console.log(`Frontend: Álbum ${albumId} excluído com sucesso.`);
+        fetchAlbums();
+      } catch (err) {
+        console.error(`Frontend: Erro ao excluir álbum ${albumId}:`, err);
+        setErrorAlbums("Erro ao excluir álbum. Tente novamente.");
+      } finally {
+        setLoadingAlbums(false);
+      }
+    }
   };
 
   return (
@@ -68,7 +97,7 @@ export default function Albuns() {
           <header className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-black">Todos os Álbuns</h2>
             <button
-              onClick={() => setIsAlbumModalOpen(true)}
+              onClick={handleOpenCreateModal}
               className="bg-purple-600 hover:bg-purple-800 hover:cursor-pointer transition-colors text-white text-lg font-bold whitespace-nowrap rounded-4xl px-4 py-2"
             >
               + Novo álbum
@@ -90,15 +119,27 @@ export default function Albuns() {
 
           <div className="flex gap-6 flex-wrap justify-center">
             {!loadingAlbums &&
-              albums.map((album) => <AlbumCard key={album.id} album={album} />)}
+              albums.map((album) => (
+                <AlbumCard
+                  key={album.id}
+                  album={album}
+                  onEdit={handleOpenEditModal}
+                  onDelete={handleDeleteAlbum}
+                />
+              ))}
           </div>
         </div>
       </section>
 
       <AlbumFormModal
         isOpen={isAlbumModalOpen}
-        onClose={() => setIsAlbumModalOpen(false)}
+        onClose={() => {
+          setIsAlbumModalOpen(false);
+          setEditingAlbum(null);
+        }}
         onAlbumCreated={handleAlbumCreated}
+        onAlbumUpdated={handleAlbumUpdated}
+        editingAlbum={editingAlbum}
       />
     </main>
   );

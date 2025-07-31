@@ -1,13 +1,16 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Trash2 } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 import { Album } from "@/app/albuns/page";
 
 interface AlbumCardProps {
   album: Album;
+  onEdit: (album: Album) => void;
+  onDelete: (albumId: number) => void;
 }
 
-export default function AlbumCard({ album }: AlbumCardProps) {
+export default function AlbumCard({ album, onEdit, onDelete }: AlbumCardProps) {
   const displayImageUrl = album.imageUrl || "/bg-secao-inicial.png";
 
   return (
@@ -23,16 +26,28 @@ export default function AlbumCard({ album }: AlbumCardProps) {
             className="rounded-t-lg"
           />
 
-          <button
-            className="absolute bottom-2 right-2 bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log(`Excluir álbum com ID: ${album.id}`);
-            }}
-          >
-            <Trash2 size={24} />
-          </button>
+          <div className="absolute bottom-2 right-2 flex gap-2">
+            <button
+              className="bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onDelete(album.id);
+              }}
+            >
+              <Trash2 size={24} />
+            </button>
+            <button
+              className="bg-gray-800 hover:scale-105 transition-all text-white rounded-lg p-1 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onEdit(album);
+              }}
+            >
+              <SquarePen size={24} />
+            </button>
+          </div>
         </div>
 
         {/* Detalhes do álbum */}

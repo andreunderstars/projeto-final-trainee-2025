@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,17 +9,22 @@ import {
 } from "@/components/ui/dialog";
 
 import api from "@/utils/api";
+import { Album } from "@/app/albuns/page";
 
 interface AlbumFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAlbumCreated: () => void;
+  onAlbumUpdated: () => void;
+  editingAlbum?: Album | null;
 }
 
 export default function AlbumFormModal({
   isOpen,
   onClose,
   onAlbumCreated,
+  onAlbumUpdated,
+  editingAlbum,
 }: AlbumFormModalProps) {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
@@ -33,12 +38,48 @@ export default function AlbumFormModal({
 
   const inputStyle = "p-2 border border-zinc-200 rounded-md text-black";
 
+  useEffect(() => {
+    if (isOpen && editingAlbum) {
+      setTitle(editingAlbum.title);
+      setArtist(editingAlbum.artist);
+      setGender(editingAlbum.gender);
+      setReleaseYear(editingAlbum.releaseYear.toString());
+      setImageUrl(editingAlbum.imageUrl || "");
+      setError(null);
+      setSuccess(null);
+    } else if (isOpen && !editingAlbum) {
+      setTitle("");
+      setArtist("");
+      setGender("");
+      setReleaseYear("");
+      setImageUrl("");
+      setError(null);
+      setSuccess(null);
+    }
+  }, [isOpen, editingAlbum]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setLoading(true);
     setError(null);
     setSuccess(null);
+
+    const trimmedTitle = title.trim();
+    const trimmedArtist = artist.trim();
+    const trimmedGender = gender.trim();
+    const trimmedImageUrl = imageUrl.trim();
+
+    if (
+      !trimmedTitle ||
+      !trimmedArtist ||
+      !trimmedGender ||
+      !releaseYear.trim()
+    ) {
+      setError("Por favor, preencha todos os campos obrigatórios.");
+      setLoading(false);
+      return;
+    }
 
     const parsedReleaseYear = parseInt(releaseYear);
     if (isNaN(parsedReleaseYear)) {
@@ -47,39 +88,79 @@ export default function AlbumFormModal({
       return;
     }
 
+    const albumData = {
+      title: trimmedTitle,
+      artist: trimmedArtist,
+      gender: trimmedGender,
+      releaseYear: parsedReleaseYear,
+      imageUrl: trimmedImageUrl === "" ? null : trimmedImageUrl,
+    };
+
     try {
-      const response = await api.post("/albums", {
-        title,
-        artist,
-        gender,
-        releaseYear: parsedReleaseYear,
-        imageUrl: imageUrl.trim() === "" ? null : imageUrl,
-      });
+      let response;
+      if (editingAlbum) {
+        {
+          /* Modo Edição*/
+        }
+        console.log(
+          "Frontend: Tentando ATUALIZAR álbum com ID:",
+          editingAlbum.id,
+          "e dados:",
+          albumData
+        );
+        response = await api.put(`/albums/${editingAlbum.id}`, albumData);
+        setSuccess("Álbum atualizado com sucesso!");
+        onAlbumUpdated();
+      } else {
+        {
+          /* Modo Criação */
+        }
+        console.log("Frontend: Tentando CRIAR álbum com dados:", albumData);
+        response = await api.post("/albums", albumData);
+        setSuccess("Álbum criado com sucesso!");
+        onAlbumCreated();
+      }
 
-      setSuccess("Álbum criado com sucesso!");
-      console.log("Álbum criado:", response.data);
+      console.log(
+        `${editingAlbum ? "Álbum atualizado" : "Álbum criado"}:`,
+        response.data
+      );
 
-      setTitle("");
-      setArtist("");
-      setGender("");
-      setReleaseYear("");
-      setImageUrl("");
+      setTimeout(() => {
+        onClose();
+      }, 1500);
+    } catch (err: any) {
+      console.error("Frontend: Erro ao submeter álbum:", err);
 
-      onAlbumCreated();
-    } catch (err) {
-      console.error("Erro ao criar álbum:", err);
-      // Verifica se o erro é uma resposta do Axios
+      if (err.response) {
+        const backendErrorMessage =
+          err.response.data.message ||
+          err.response.data.error ||
+          "Erro desconhecido do servidor.";
+        setError(`Erro: ${backendErrorMessage}`);
+      } else {
+        setError("Ocorreu um erro inesperado na requisição.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  const dialogTitle = editingAlbum ? "Editar Álbum" : "Novo Álbum";
+  const submitButtonText = loading
+    ? editingAlbum
+      ? "Atualizando..."
+      : "Criando..."
+    : editingAlbum
+    ? "Salvar Alterações"
+    : "Criar Álbum";
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-white">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl text-black">
-            Novo álbum
+            {dialogTitle}
           </DialogTitle>
         </DialogHeader>
 
@@ -102,6 +183,7 @@ export default function AlbumFormModal({
 
           {/* Artista */}
           <label className="text-xl text-black" htmlFor="artist">
+            {" "}
             Artista
           </label>
           <input
@@ -115,6 +197,7 @@ export default function AlbumFormModal({
 
           {/* Gênero */}
           <label className="text-xl text-black" htmlFor="gender">
+            {" "}
             Gênero
           </label>
           <input
@@ -128,6 +211,7 @@ export default function AlbumFormModal({
 
           {/* Ano lançamento */}
           <label className="text-xl text-black" htmlFor="releaseYear">
+            {" "}
             Lançamento
           </label>
           <input
@@ -180,7 +264,7 @@ export default function AlbumFormModal({
               className="bg-purple-500 text-white border border-zinc-300 rounded-md hover:bg-purple-800 transition-colors px-4 py-2 cursor-pointer"
               disabled={loading}
             >
-              {loading ? "Criando..." : "Criar Álbum"}
+              {submitButtonText}
             </button>
           </div>
         </form>
